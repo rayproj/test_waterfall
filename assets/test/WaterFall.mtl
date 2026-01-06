@@ -1,0 +1,108 @@
+{
+  "__type__": "cc.Material",
+  "_name": "",
+  "_objFlags": 0,
+  "_native": "",
+  "_effectAsset": {
+    "__uuid__": "9b2b4d58-7faf-4327-b339-125a97fa6144",
+    "__expectedType__": "cc.EffectAsset"
+  },
+  "_techIdx": 0,
+  "_defines": [
+    {
+      "USE_VERTEX_COLOR": true
+    }
+  ],
+  "_states": [
+    {
+      "rasterizerState": {},
+      "depthStencilState": {},
+      "blendState": {
+        "targets": [
+          {}
+        ]
+      }
+    }
+  ],
+  "_props": [
+    {
+      "_DeepColor": {
+        "__type__": "cc.Color",
+        "r": 69,
+        "g": 151,
+        "b": 192,
+        "a": 255
+      },
+      "_ShallowColor": {
+        "__type__": "cc.Color",
+        "r": 70,
+        "g": 181,
+        "b": 185,
+        "a": 15
+      },
+      "_RippleColor": {
+        "__type__": "cc.Color",
+        "r": 31,
+        "g": 31,
+        "b": 31,
+        "a": 15
+      },
+      "_RippleParams": {
+        "__type__": "cc.Vec4",
+        "x": 2,
+        "y": -0.3,
+        "z": 4,
+        "w": 5
+      },
+      "_FoamWidth": 0.2,
+      "_NormalTexture": {
+        "__uuid__": "e5f9a62b-d291-4ec9-afa9-c3fa84f872de@3c318",
+        "__expectedType__": "cc.Texture2D"
+      },
+      "_NoramlParams": {
+        "__type__": "cc.Vec4",
+        "x": 0.05,
+        "y": -0.05,
+        "z": 0.03,
+        "w": 0.01
+      },
+      "_ReflectionTex": {
+        "__uuid__": "546d20fb-3723-4312-991f-0328205ad6ae@6c48a",
+        "__expectedType__": "cc.Texture2D"
+      },
+      "_ReflectionTex_ST": {
+        "__type__": "cc.Vec4",
+        "x": 1,
+        "y": 1,
+        "z": -0.05,
+        "w": 0
+      },
+      "_ReflectionColor": {
+        "__type__": "cc.Color",
+        "r": 48,
+        "g": 48,
+        "b": 48,
+        "a": 83
+      },
+      "_FallTex": {
+        "__uuid__": "77b23803-ba15-4b16-b4d1-79cf3abe21c4@6c48a",
+        "__expectedType__": "cc.Texture2D"
+      },
+      "_FallColor": {
+        "__type__": "cc.Color",
+        "r": 255,
+        "g": 255,
+        "b": 255,
+        "a": 130
+      },
+      "_FallParams": {
+        "__type__": "cc.Vec4",
+        "x": 0.8,
+        "y": 0.3,
+        "z": 0,
+        "w": -0.5
+      },
+      "_FallNoise": 0.5
+    }
+  ]
+}

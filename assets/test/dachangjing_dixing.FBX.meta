@@ -1,0 +1,270 @@
+{
+  "ver": "2.3.4",
+  "importer": "fbx",
+  "imported": true,
+  "uuid": "d2c91771-9223-48b6-a5f7-b2ca3c0767d8",
+  "files": [],
+  "subMetas": {
+    "64932": {
+      "importer": "gltf-mesh",
+      "uuid": "d2c91771-9223-48b6-a5f7-b2ca3c0767d8@64932",
+      "displayName": "",
+      "id": "64932",
+      "name": "daolu02.mesh",
+      "userData": {
+        "gltfIndex": 4
+      },
+      "ver": "1.1.0",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "79a41": {
+      "importer": "gltf-mesh",
+      "uuid": "d2c91771-9223-48b6-a5f7-b2ca3c0767d8@79a41",
+      "displayName": "",
+      "id": "79a41",
+      "name": "shitou01.mesh",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.1.0",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "24c39": {
+      "importer": "gltf-mesh",
+      "uuid": "d2c91771-9223-48b6-a5f7-b2ca3c0767d8@24c39",
+      "displayName": "",
+      "id": "24c39",
+      "name": "shitou03.mesh",
+      "userData": {
+        "gltfIndex": 1
+      },
+      "ver": "1.1.0",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "e5add": {
+      "importer": "gltf-mesh",
+      "uuid": "d2c91771-9223-48b6-a5f7-b2ca3c0767d8@e5add",
+      "displayName": "",
+      "id": "e5add",
+      "name": "shitou02.mesh",
+      "userData": {
+        "gltfIndex": 2
+      },
+      "ver": "1.1.0",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "383b9": {
+      "importer": "gltf-mesh",
+      "uuid": "d2c91771-9223-48b6-a5f7-b2ca3c0767d8@383b9",
+      "displayName": "",
+      "id": "383b9",
+      "name": "daolu01.mesh",
+      "userData": {
+        "gltfIndex": 3
+      },
+      "ver": "1.1.0",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "1d338": {
+      "importer": "gltf-mesh",
+      "uuid": "d2c91771-9223-48b6-a5f7-b2ca3c0767d8@1d338",
+      "displayName": "",
+      "id": "1d338",
+      "name": "dimian.mesh",
+      "userData": {
+        "gltfIndex": 5
+      },
+      "ver": "1.1.0",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "18b91": {
+      "importer": "gltf-mesh",
+      "uuid": "d2c91771-9223-48b6-a5f7-b2ca3c0767d8@18b91",
+      "displayName": "",
+      "id": "18b91",
+      "name": "shitou04.mesh",
+      "userData": {
+        "gltfIndex": 6
+      },
+      "ver": "1.1.0",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "383ec": {
+      "importer": "gltf-mesh",
+      "uuid": "d2c91771-9223-48b6-a5f7-b2ca3c0767d8@383ec",
+      "displayName": "",
+      "id": "383ec",
+      "name": "shitou05.mesh",
+      "userData": {
+        "gltfIndex": 7
+      },
+      "ver": "1.1.0",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "540d0": {
+      "importer": "gltf-mesh",
+      "uuid": "d2c91771-9223-48b6-a5f7-b2ca3c0767d8@540d0",
+      "displayName": "",
+      "id": "540d0",
+      "name": "haimianpubu.mesh",
+      "userData": {
+        "gltfIndex": 8
+      },
+      "ver": "1.1.0",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "bc848": {
+      "importer": "gltf-mesh",
+      "uuid": "d2c91771-9223-48b6-a5f7-b2ca3c0767d8@bc848",
+      "displayName": "",
+      "id": "bc848",
+      "name": "caodi.mesh",
+      "userData": {
+        "gltfIndex": 9
+      },
+      "ver": "1.1.0",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "928c2": {
+      "importer": "texture",
+      "uuid": "d2c91771-9223-48b6-a5f7-b2ca3c0767d8@928c2",
+      "displayName": "",
+      "id": "928c2",
+      "name": "贴图 #52.texture",
+      "userData": {
+        "wrapModeS": "repeat",
+        "wrapModeT": "repeat",
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "anisotropy": 0,
+        "isUuid": false,
+        "imageUuidOrDatabaseUri": "db://assets/test/scenes.png"
+      },
+      "ver": "1.0.22",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "6363a": {
+      "importer": "gltf-material",
+      "uuid": "d2c91771-9223-48b6-a5f7-b2ca3c0767d8@6363a",
+      "displayName": "",
+      "id": "6363a",
+      "name": "03 - Default.material",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "e531f": {
+      "importer": "gltf-scene",
+      "uuid": "d2c91771-9223-48b6-a5f7-b2ca3c0767d8@e531f",
+      "displayName": "",
+      "id": "e531f",
+      "name": "dachangjing_dixing.prefab",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.12",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "imageMetas": [
+      {
+        "name": "贴图 #52",
+        "uri": "db://assets/test/scenes.png"
+      }
+    ],
+    "fbx": {
+      "smartMaterialEnabled": true
+    },
+    "redirect": "d2c91771-9223-48b6-a5f7-b2ca3c0767d8@e531f",
+    "assetFinder": {
+      "meshes": [
+        "d2c91771-9223-48b6-a5f7-b2ca3c0767d8@79a41",
+        "d2c91771-9223-48b6-a5f7-b2ca3c0767d8@24c39",
+        "d2c91771-9223-48b6-a5f7-b2ca3c0767d8@e5add",
+        "d2c91771-9223-48b6-a5f7-b2ca3c0767d8@383b9",
+        "d2c91771-9223-48b6-a5f7-b2ca3c0767d8@64932",
+        "d2c91771-9223-48b6-a5f7-b2ca3c0767d8@1d338",
+        "d2c91771-9223-48b6-a5f7-b2ca3c0767d8@18b91",
+        "d2c91771-9223-48b6-a5f7-b2ca3c0767d8@383ec",
+        "d2c91771-9223-48b6-a5f7-b2ca3c0767d8@540d0",
+        "d2c91771-9223-48b6-a5f7-b2ca3c0767d8@bc848"
+      ],
+      "skeletons": [],
+      "textures": [
+        "d2c91771-9223-48b6-a5f7-b2ca3c0767d8@928c2"
+      ],
+      "materials": [
+        "d2c91771-9223-48b6-a5f7-b2ca3c0767d8@6363a"
+      ],
+      "scenes": [
+        "d2c91771-9223-48b6-a5f7-b2ca3c0767d8@e531f"
+      ]
+    }
+  }
+}

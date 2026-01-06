@@ -1,0 +1,189 @@
+// Copyright (c) 2017-2020 Xiamen Yaji Software Co., Ltd.
+CCEffect %{
+  techniques:
+  - name: transparent
+    passes:
+    - vert: water-vs:vert
+      frag: water-fs:frag
+      depthStencilState:
+        depthTest: true
+        depthWrite: false
+      blendState:
+        targets:
+        - blend: true
+          blendSrc: src_alpha
+          blendDst: one_minus_src_alpha
+          blendDstAlpha: one_minus_src_alpha
+      properties: &props
+        _DeepColor:         { value: [1.0, 1.0, 1.0, 1.0], editor: { displayName: "深水颜色", type: color } }
+        _ShallowColor:      { value: [1.0, 1.0, 1.0, 1.0], editor: { displayName: "浅水颜色", type: color } }
+        _RippleColor:       { value: [1.0, 1.0, 1.0, 1.0], editor: { displayName: "涟漪颜色", type: color } }
+        _RippleParams:      { value: [5.0, 0.01, 3.0, 5.0], editor: { displayName: "涟漪参数", tooltip: "x涟漪大小 y涟漪速度 z涟漪旋转速度 w涟漪形变"} }
+        _FoamColor:         { value: [1.0, 1.0, 1.0, 1.0], editor: { displayName: "浮沫颜色", type: color } }
+        _FoamWidth:         { value: 0, target: _FomaParams.x, editor: { displayName: "浮沫宽度", range: [0, 1.0], step: 0.001 } }
+        _NormalTexture:     { value: grey, editor: { displayName: "法线贴图" } }
+        _NoramlParams:      { value: [1.0, 0.0, 1.0, 0.0], editor: { displayName: "法线参数", tooltip: "x法线1密度 y法线1速度 z法线2密度 w法线2速度" }}
+        _ReflectionTex:     { value: white, editor: { displayName: "反射贴图" } }
+        _ReflectionTex_ST:  { value: [1.0, 1.0, 0.0, 0.0], editor: { displayName: "反射贴图参数", tooltip: "xy反射大小 z反射移动速度 w反射贴图v偏移" } }
+        _ReflectionColor:   { value: [1.0, 1.0, 1.0, 1.0], editor: { displayName: "反射颜色", type: color, tooltip: "a控制扰动强度" } }
+        _FallTex:           { value: white, editor: { displayName: "瀑布噪声贴图" } }
+        _FallColor:         { value: [1.0, 1.0, 1.0, 1.0], editor: { displayName: "瀑布颜色", type: color, tooltip: "a控制瀑布强度" } }
+        _FallParams:        { value: [1.2, 0.5, 0.0, -0.5], editor: { displayName: "瀑布参数", tooltip: "xy瀑布大小 zw瀑布速度" }}
+        _FallNoise:         { value: 1.0, target: _FomaParams.y, editor: { displayName: "瀑布扰动强度" } }
+}%
+
+CCProgram water-vs %{
+  precision highp float;
+  
+  #include <legacy/input-standard>
+  #include <builtin/uniforms/cc-global>
+  #include <legacy/local-batch>
+  #include <legacy/fog-vs>
+
+  #if USE_VERTEX_COLOR
+    in lowp vec4 a_color;
+    out lowp vec4 v_color;
+  #endif
+
+  out vec3 v_worldPos;
+  out vec3 v_projPos;
+  out vec3 v_worldNormal;
+
+  vec4 vert () {
+    StandardVertInput In;
+    CCVertInput(In);
+
+    mat4 matWorld, matWorldIT;
+    CCGetWorldMatrixFull(matWorld, matWorldIT);
+
+    #if USE_VERTEX_COLOR
+      v_color = a_color;
+    #endif
+
+    vec4 worldPos = matWorld * In.position;
+    v_worldPos = worldPos.xyz;
+
+    vec4 clipPos = cc_matProj * cc_matView * worldPos;
+    v_projPos = clipPos.xyw;
+
+    v_worldNormal = normalize((matWorldIT * vec4(In.normal, 0.0)).xyz);
+
+    CC_TRANSFER_FOG(worldPos);
+    return clipPos;
+  }
+}%
+
+CCProgram water-fs %{
+  precision highp float;
+
+  // #include <legacy/output-standard>
+  #include <legacy/fog-fs>
+  #include <builtin/uniforms/cc-global>
+
+  #if USE_VERTEX_COLOR
+    in lowp vec4 v_color;
+  #endif
+
+  uniform Constants {
+    vec4 _DeepColor;
+    vec4 _ShallowColor;
+    vec4 _RippleColor;
+    vec4 _RippleParams;
+    vec4 _FoamColor;
+    vec4 _FomaParams;
+    vec4 _NoramlParams;
+    vec4 _ReflectionColor;
+    vec4 _ReflectionTex_ST;
+    vec4 _FallParams;
+    vec4 _FallColor;
+  };
+
+  uniform sampler2D _ReflectionTex;
+  uniform sampler2D _NormalTexture;
+  uniform sampler2D _FallTex;
+
+  in vec3 v_worldPos;
+  in vec3 v_projPos;
+  in vec3 v_worldNormal;
+
+  vec2 Unity_Voronoi_RandomVector_float(vec2 UV, float offset)
+  {
+    mat2 m = mat2(15.27, 47.63, 99.41, 89.98);
+    UV = fract(sin(UV * m) * 46839.32);
+    return vec2(sin(UV.y * +offset) * 0.5 + 0.5, cos(UV.x * offset) * 0.5 + 0.5);
+  }
+
+  void Unity_Voronoi_float(vec2 UV, float AngleOffset, float CellDensity, out float Out)
+  {
+    vec2 g = floor(UV * CellDensity);
+    vec2 f = fract(UV * CellDensity);
+    float t = 8.0;
+    vec3 res = vec3(8.0, 0.0, 0.0);
+
+    for(int y = -1; y <= 1; y++) {
+      for(int x = -1; x <= 1; x++) {
+        vec2 lattice = vec2(x, y);
+        vec2 offset = Unity_Voronoi_RandomVector_float(lattice + g, AngleOffset);
+        float d = distance(lattice + offset, f);
+        if(d < res.x) {
+          res = vec3(d, offset.x, offset.y);
+          Out = res.x;
+        }
+      }
+    }
+  }
+
+  vec4 frag () {
+    float dpWorld = 1.0;
+    #if USE_VERTEX_COLOR
+      dpWorld = 1.0 - v_color.r;
+      // return vec4(v_color.r);
+    #endif
+
+    vec2 uv = v_worldPos.xz;
+
+    vec4 waterColor;
+    waterColor.rgb = mix(_ShallowColor.rgb * (1.0 + _ShallowColor.a), _DeepColor.rgb, dpWorld);
+    waterColor.a = 1.0;
+    // waterColor.a = dpWorld;
+
+    // 浮沫
+    float foamWidth = _FomaParams.x;
+    waterColor = mix(waterColor, _FoamColor, 1.0 - smoothstep(-0.05, foamWidth, dpWorld));
+
+    // 涟漪
+    vec2 rippleUV = uv * _RippleParams.x + cc_time.x * _RippleParams.y;
+    float angleOffset = cc_time.x * _RippleParams.z;
+    float voronoiOut = 0.0;
+    vec3 rippleColor = _RippleColor.rgb * (1.0 + _RippleColor.a * 2.0);
+    Unity_Voronoi_float(rippleUV, angleOffset, 1.0, voronoiOut);
+    waterColor.rgb += (pow(voronoiOut, _RippleParams.w) * (1.0 - dpWorld) * rippleColor.rgb);
+
+    vec4 normalUV = vec4(uv * _NoramlParams.x + cc_time.x * _NoramlParams.y, uv * _NoramlParams.z + cc_time.x * _NoramlParams.w);
+    // 高光
+    vec3 noraml1 = texture(_NormalTexture, normalUV.xy).rgb * 2.0 - vec3(1.0);
+    vec3 noraml2 = texture(_NormalTexture, normalUV.zw).rgb * 2.0 - vec3(1.0);
+
+    // 反射
+    vec3 _ReflectionTex_var = vec3(0.0);
+    vec3 _subtractor1 = (noraml1 - noraml2);
+    vec2 sceneUV = (v_projPos.xy / v_projPos.z * 0.5 + 0.5);
+    sceneUV.y = -sceneUV.y;
+    vec2 _componentMask = _subtractor1.rg;
+    float _Distortion = _ReflectionColor.a;
+    vec2 _remap = (((sceneUV * 2.0 - 1.0) + _componentMask * _Distortion)) * 0.5 + 0.5;
+    _ReflectionTex_var = texture(_ReflectionTex, _remap * _ReflectionTex_ST.xy + vec2(cc_time.x * _ReflectionTex_ST.z, _ReflectionTex_ST.w)).xyz;
+    waterColor.rgb += clamp(_ReflectionTex_var * _ReflectionColor.rgb, 0.0, 1.0);
+
+    // 瀑布
+    vec3 worldNormal = normalize(v_worldNormal);
+    vec3 worldUP = vec3(0.0, 1.0, 0.0);
+    float fallMask = 1.0 - max(dot(worldNormal, worldUP), 0.0);
+    fallMask = smoothstep(0.0, 0.1, fallMask);
+    vec2 fallUV = v_worldPos.xz * _FallParams.xy + cc_time.x * _FallParams.zw + _subtractor1.rg * _FomaParams.y;
+    vec4 fallNoise = texture(_FallTex, fallUV);
+    waterColor.rgb = mix(waterColor.rgb, _FallColor.rgb, pow(fallMask * fallNoise.r, _FallColor.a * 5.0));
+
+    return waterColor;
+  }
+}%
