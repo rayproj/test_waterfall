@@ -2,4 +2,4 @@
 
 <img src="README\1.gif" style="zoom:50%;" />
 
-<img src="README\2.png" style="zoom:50%;" />
+<img src="README\2.png" style="zoom: 25%;" />
